@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<!--    <script src="https://kit.fontawesome.com/493b0294a2.js" crossorigin="anonymous"></script>&ndash;&gt;-->
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+    <title>Sistema de administracion de deportistas</title>
+</head>
+<body>
+<div class="panel panel-primary" align="center">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<h1 class="display-6">Sistema de administracion de deportistas</h1>
+<p>Cantidad de deportistas registrados : {{cantidad}}</p>
+</div>
+<div>
+    <a class="btn btn-primary" href="agregar_deportista"><i class="fa-solid fa-user-plus"></i></a>
+</div>
+<br>
+<div class="table-responsive" align="center">
+<table class="table table-hover table-bordered table-sm align-middle caption-top text-center table-condensed">
+<caption>Lista de deportistas</caption>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Cedula</th>
+        <th>Sexo</th>
+        <th>Edad</th>
+        <th>Disciplina</th>
+        <th>Ciudad</th>
+        <th>Sede</th>
+        <th>Competencia</th>
+    </tr>
+    <tbody class="table-group-divider">
+        {% for deportista in deportistas %}
+            <tr>
+                <td>{{deportista.id}}</td>
+                <td>{{deportista.nombre | upper}}</td>
+                <td>{{deportista.apellido | upper}}</td>
+                <td>{{deportista.cedula}}</td>
+                <td>{% if deportista.sexo == 'F'%}Femenino{% elif deportista.sexo == 'M' %}Masculino {% endif %}</td>
+                <td>{{deportista.edad}}</td>
+                <td>{{deportista.disciplina}}</td>
+                <td>{{deportista.ciudad}}</td>
+                <td>{{ deportista.sede.nombre }}</td>
+                <td>{{ deportista.competencia.categoria }}</td>
+                <td><a class="btn btn-secondary" href = 'ver_deportista/{{deportista.id}}'><i class="fa-solid fa-eye"></i></a></td>
+                <td><a class="btn btn-success" href = 'editar_deportista/{{deportista.id}}'><i class="fa-solid fa-pencil"></i></a></td>
+                <td><a class="btn btn-danger" href = 'eliminar_deportista/{{deportista.id}}'><i class="fa-solid fa-eraser"></i></a></td>
+            </tr>
+        {% endfor %}
+</table>
+</div>
+</body>
+</html>
